@@ -46,7 +46,8 @@ class Server:
         end_index = min(index + page_size, len(self.__dataset))
         return {
             "index": index,
-            "next_index": None if end_index == len(self.__dataset) else end_index,
+            "next_index": None if end_index == len(self.__dataset)
+            else end_index,
             "page_size": page_size,
             "data": self.__dataset[index: end_index]
         }

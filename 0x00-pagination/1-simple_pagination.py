@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""
-Simple helper function for pagination.
-"""
+"""Task 1: Simple pagination."""
+
 import csv
 from typing import List, Tuple
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """Return a tuple containing the start and end index for the pagination."""
+    """Retrieve the index range from a given page and page size."""
     start_index = (page - 1) * page_size
-    end_index = page * page_size
+    end_index = start_index + page_size
     return start_index, end_index
 
 
@@ -27,11 +26,11 @@ class Server:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
-            self.__dataset = dataset[1:]  # Skip header row
+            self.__dataset = dataset[1:]
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Return the appropriate page of the dataset."""
+        """Retrieve a page of data."""
         assert isinstance(page, int) and page > 0, "Page must be a positive integer."
         assert isinstance(page_size, int) and page_size > 0, "Page size must be a positive integer."
 

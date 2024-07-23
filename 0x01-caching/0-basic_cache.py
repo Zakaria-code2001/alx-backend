@@ -6,17 +6,18 @@ from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    def __init__(self):
-        super().__init__(self.cache_data)
-    
+    """
+    class BasicCache that
+    inherits from BaseCaching
+    and is a caching system
+    """
+
     def put(self, key, item):
-        if key == None and item == None:
-            pass
-        else:
-            self.cache_data[key] = item
-    
+        if key is None or item is None:
+            return
+        self.cache_data[key] = item
+
     def get(self, key):
-        if key not in self.cache_data or key == None:
+        if key is None:
             return None
-        else:
-            return self.cache_data[key]
+        return self.cache_data[key]

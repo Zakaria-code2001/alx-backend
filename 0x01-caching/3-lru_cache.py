@@ -5,6 +5,9 @@
 from base_caching import BaseCaching
 
 class LRUCache(Basecaching):
+    """
+    docs
+    """
     def __init__(self):
         """
         init

@@ -2,6 +2,7 @@
 """BaseCaching module"""
 
 from base_caching import BaseCaching
+from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
@@ -10,7 +11,7 @@ class LRUCache(BaseCaching):
     def __init__(self):
         """Initialize LRUCache"""
         super().__init__()
-        self.usage_count = {}
+        self.cache_data = OrderedDict()
 
     def put(self, key, item):
         """
@@ -25,13 +26,12 @@ class LRUCache(BaseCaching):
 
         if len(self.cache_data) >= self.MAX_ITEMS:
             if key not in self.cache_data:
-                least_used = min(self.usage_count, key=self.usage_count.get)
-                del self.cache_data[least_used]
-                del self.usage_count[least_used]
-                print(f"DISCARD: {least_used}")
+                lru_key, _ = self.cache_data.popitem(True)
+                print("DISCARD:", lru_key)
+                
 
         self.cache_data[key] = item
-        self.usage_count[key] = self.usage_count.get(key, 0) + 1
+        self.cache_data.move_to_end(key, last=False)
 
     def get(self, key):
         """
@@ -43,8 +43,6 @@ class LRUCache(BaseCaching):
         Returns:
             The cached item if it exists, None otherwise
         """
-        if key is None or key not in self.cache_data:
-            return None
-
-        self.usage_count[key] += 1
-        return self.cache_data[key]
+        if key is not None and key in self.cache_data:
+            self.cache_data.move_to_end(key, last=False)
+        return self.cache_data.get(key, None)

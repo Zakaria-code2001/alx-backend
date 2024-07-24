@@ -6,10 +6,16 @@ from base_caching import BaseCaching
 
 
 class FIFOCache(BaseCaching):
+    """
+    fifo docs
+    """
     def __init__(self):
         super().__init__()
 
     def put(self, key, item):
+        """
+        put docs
+        """
         if key is None or item is None:
             return
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
@@ -21,6 +27,9 @@ class FIFOCache(BaseCaching):
         self.cache_data[key] = item
 
     def get(self, key):
+        """
+        get docs
+        """
         if key is None or key not in self.cache_data:
             return None
         else:

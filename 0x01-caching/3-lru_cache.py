@@ -16,7 +16,6 @@ class LRUCache(BaseCaching):
     def put(self, key, item):
         """
         Add an item to the cache
-        
         Args:
             key: The key to store the item under
             item: The item to store in the cache
@@ -28,7 +27,6 @@ class LRUCache(BaseCaching):
             if key not in self.cache_data:
                 lru_key, _ = self.cache_data.popitem(True)
                 print("DISCARD:", lru_key)
-                
 
         self.cache_data[key] = item
         self.cache_data.move_to_end(key, last=False)
@@ -36,7 +34,6 @@ class LRUCache(BaseCaching):
     def get(self, key):
         """
         Retrieve an item from the cache
-        
         Args:
             key: The key of the item to retrieve
 
